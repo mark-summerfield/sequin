@@ -18,6 +18,16 @@ db-1.tm
 
 st.sh
 
+# TODO
+# When a new database is opened what should be shown? How about a
+# structure-window where the user can then click, e.g., a table or view
+# to see a Table/View window?
+
+# NOTE
+# Whenever a new database is opened for any BLOB fields, select the
+# first record that has a nonempty BLOB and determine its type by magic
+# number
+
 # NOTE
 # can create incrementally, one type of child window at a time, e.g.,
 #   - Table/View window
@@ -41,10 +51,5 @@ st.sh
 #   	    ste with text
 #   	else
 #   	    Fieldname “BLOB (n,nnn bytes)”
-#
-# NOTE
-# Whenever a new database is opened for any BLOB fields, select the
-# first record that has a nonempty BLOB and determine its type by magic
-# number
 
 # vim: syn=yaml
