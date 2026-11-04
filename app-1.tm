@@ -169,7 +169,7 @@ oo::define App method on_config {} {
 }
 
 oo::define App method on_about {} {
-    AboutForm new "A read-only GUI SQLite Viewer" \
+    AboutForm new "A read-only GUI SQLite viewer" \
         https://github.com/mark-summerfield/sequin
 }
 
