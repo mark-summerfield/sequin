@@ -6,13 +6,15 @@ package require config_form
 package require flowrow
 package require mdi
 package require ref
+package require sqlite3 3
 package require ui
 
 const SHORT_TIMEOUT 10_000
 const LONG_TIMEOUT 30_000
 
 oo::singleton create App {
-    variable Filename ;# SQLite file
+    variable Db ;# SQLite database
+    variable Filename ;# SQLite filename
     variable Toolbars
     variable MdiArea
     variable StatusLabel
@@ -21,6 +23,7 @@ oo::singleton create App {
 oo::define App constructor {} {
     ui::wishinit
     tk appname $::APPNAME
+    set Db ""
     set Filename [expr {$::argc ? [lindex $::argv 0] : ""}]
     if {$Filename eq ""} { set Filename [[Config new] lastfile] }
     set Toolbars {}
@@ -40,7 +43,7 @@ oo::define App method on_startup {} {
     set config [Config new]
     $Toolbars hide_toolbars {*}[$config hidden_toolbars]
     update idletasks
-    puts on_startup ;# TODO if $Filename ne "" ...
+    if {$Filename ne ""} { my file_open }
 }
 
 oo::define App method make_ui {} {
@@ -81,12 +84,12 @@ oo::define App method make_file_menu {} {
             -underline 0 -accelerator Ctrl+O -compound left \
             -image [ui::icon document-open.svg $::MENU_ICON_SIZE]
     .menu.file add separator
-    .menu.file add command -command [callback on_config] -label Config… \
-            -underline 0 -compound left \
-            -image [ui::icon preferences-system.svg $::MENU_ICON_SIZE]
     # TODO other toolbars…
     $Toolbars new_menu .menu.file {File} \
             [ui::icon preferences-desktop.svg $::MENU_ICON_SIZE]
+    .menu.file add command -command [callback on_config] -label Config… \
+            -underline 0 -compound left \
+            -image [ui::icon preferences-system.svg $::MENU_ICON_SIZE]
     .menu.file add command -command [callback on_about] -label About \
             -underline 1 -compound left \
             -image [ui::icon about.svg $::MENU_ICON_SIZE]
@@ -99,18 +102,10 @@ oo::define App method make_file_menu {} {
 oo::define App method make_file_toolbar {} {
     set tip tooltip::tooltip
     ttk::frame .mf.tb.file
-    ttk::button .mf.tb.file.file_new -style Toolbutton \
-            -command [callback on_file_new] \
-            -image [ui::icon document-new.svg $::ICON_SIZE]
-    $tip .mf.tb.file.file_new "File New"
     ttk::button .mf.tb.file.file_open -style Toolbutton \
             -command [callback on_file_open] \
             -image [ui::icon document-open.svg $::ICON_SIZE]
     $tip .mf.tb.file.file_open "File Open"
-    ttk::button .mf.tb.file.file_save -style Toolbutton \
-            -command [callback on_file_save] \
-            -image [ui::icon document-save.svg $::ICON_SIZE]
-    $tip .mf.tb.file.file_save "File Save"
     $Toolbars add_toolbar .mf.tb.file
 }
 
@@ -133,7 +128,7 @@ oo::define App method make_layout {} {
 
 oo::define App method make_bindings {} {
     bind [$MdiArea frame] <<MdiTileError>> [callback on_tile_error %d]
-    puts make_bindings ;# TODO
+    bind . <Control-o> [callback on_file_open]
     bind . <Control-q> [callback on_quit]
     wm protocol . WM_DELETE_WINDOW [callback on_quit]
 }
@@ -149,6 +144,8 @@ oo::define App method show_error err {
     $StatusLabel configure -text $err -foreground red
     after $::LONG_TIMEOUT [callback clear_status]
 }
+
+oo::define App method clear_status {} { $StatusLabel configure -text "" }
 
 oo::define App method on_config {} {
     set config [Config new]
@@ -175,12 +172,8 @@ oo::define App method on_about {} {
 
 oo::define App method on_quit {} {
     my save_config
+    my file_close
     exit
-}
-
-oo::define App method on_tile_error message {
-    my show_message "$message; cascading instead"
-    $MdiArea cascade
 }
 
 oo::define App method save_config {} {
@@ -192,4 +185,39 @@ oo::define App method save_config {} {
     $config set_hidden_toolbars $hidden_toolbars
     $config set_lastfile [file normalize $Filename]
     $config save
+}
+
+oo::define App method on_tile_error message {
+    my show_message "$message; cascading instead"
+    $MdiArea cascade
+}
+
+oo::define App method on_file_open {} {
+    set dir [expr {$Filename eq "" ? [file home] \
+                                   : [file dirname $Filename]}]
+    my file_close
+    if {[set filename [tk_getOpenFile -initialdir $dir \
+            -filetypes {{{SQLite files} {*.sqlite}} {{All files} {*}}} \
+            -title "[tk appname] — Open" -parent .]] ne ""} {
+        set Filename $filename
+        my file_open
+    }
+}
+
+oo::define App method file_close {} {
+    if {$Filename ne ""} {
+        $Db close
+        set Db ""
+        set Filename ""
+        $MdiArea close_all
+        wm title . [tk appname]
+    }
+}
+
+oo::define App method file_open {} {
+    sqlite3 $Db $Filename -nomutex 1 -readonly 1
+    wm title . "[tk appname] — [file tail $Filename]"
+    set version [$Db onecolumn "PRAGMA USER_VERSION"]
+    my show_message "Opened $Filename[expr {$version ? " (v$version)" \
+                                                     : ""}]"
 }

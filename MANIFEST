@@ -43,14 +43,8 @@ st.sh
 #   	    Fieldname “BLOB (n,nnn bytes)”
 #
 # NOTE
-# Whenever a new database is opened look for databasename.sqn or failing
-# that glob *.sqn & if there is exactly one use that for metadata;
-# If the user sets metadata, i.e., says this field is jpg or bool etc.,
-# then save databasename.sqn when the database (or Sequin) is closed.
-#   .sqn file is ini-style e.g.,
-#     [table name]
-#     field name: field_interpretation
-#   where field_interpretation is one of:
-#   bool png jpg svg tkt tktz ste blob (default)
+# Whenever a new database is opened for any BLOB fields, select the
+# first record that has a nonempty BLOB and determine its type by magic
+# number
 
 # vim: syn=yaml
