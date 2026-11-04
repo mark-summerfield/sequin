@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   id="svg2"
+   sodipodi:docname="no.svg"
+   viewBox="0 0 267 267"
+   version="1.1"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4021">No button. Botón No</title>
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3771"
+       inkscape:collect="always">
+      <stop
+         id="stop3773"
+         style="stop-color:#ff0000"
+         offset="0" />
+      <stop
+         id="stop3775"
+         style="stop-color:#aa0000"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3777"
+       y2="221.04"
+       xlink:href="#linearGradient3771"
+       gradientUnits="userSpaceOnUse"
+       x2="346.93"
+       y1="450.48"
+       x1="346.93"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient3800"
+       y2="469.51"
+       gradientUnits="userSpaceOnUse"
+       x2="348.57"
+       y1="208.99"
+       x1="345.71"
+       inkscape:collect="always">
+      <stop
+         id="stop3757"
+         style="stop-color:#ffffff"
+         offset="0" />
+      <stop
+         id="stop3759"
+         style="stop-color:#f2f2f2"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3804"
+       y2="240.43"
+       xlink:href="#linearGradient3771"
+       gradientUnits="userSpaceOnUse"
+       x2="352.65"
+       y1="427.03"
+       x1="351.26"
+       inkscape:collect="always" />
+    <filter
+       id="filter3842"
+       inkscape:collect="always"
+       color-interpolation-filters="sRGB"
+       x="-0.062441309"
+       y="-0.062441309"
+       width="1.1248826"
+       height="1.1248826">
+      <feGaussianBlur
+         id="feGaussianBlur3844"
+         stdDeviation="5.2078125"
+         inkscape:collect="always" />
+    </filter>
+    <filter
+       id="filter3882"
+       inkscape:collect="always"
+       color-interpolation-filters="sRGB"
+       x="-0.03599828"
+       y="-0.03599828"
+       width="1.0719966"
+       height="1.0719966">
+      <feGaussianBlur
+         id="feGaussianBlur3884"
+         stdDeviation="3.67875"
+         inkscape:collect="always" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     fit-margin-left="0"
+     inkscape:zoom="1.4373414"
+     borderopacity="1.0"
+     inkscape:current-layer="layer1"
+     inkscape:cx="12.870985"
+     inkscape:cy="133.23209"
+     inkscape:window-maximized="1"
+     showgrid="false"
+     fit-margin-right="0"
+     showguides="true"
+     bordercolor="#666666"
+     inkscape:window-x="0"
+     inkscape:guide-bbox="true"
+     inkscape:window-y="1"
+     fit-margin-bottom="0"
+     inkscape:window-width="1354"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     pagecolor="#ffffff"
+     inkscape:document-units="px"
+     inkscape:window-height="689"
+     fit-margin-top="0"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       id="grid3893"
+       enabled="true"
+       visible="true"
+       snapvisiblegridlinesonly="true"
+       type="xygrid"
+       empspacing="5" />
+  </sodipodi:namedview>
+  <g
+     id="layer1"
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     transform="translate(-2.527 -784.02)">
+    <g
+       id="g4023">
+      <path
+         id="path3864"
+         style="filter:url(#filter3882)"
+         transform="translate(-214.02 580.91)"
+         d="m 350,214.02539 c -67.87935,0 -122.63086,54.75151 -122.63086,122.63086 0,67.87935 54.75151,122.63086 122.63086,122.63086 67.87935,0 122.63086,-54.75151 122.63086,-122.63086 0,-67.87935 -54.75151,-122.63086 -122.63086,-122.63086 z" />
+      <path
+         id="path3798"
+         style="fill:url(#linearGradient3800);stroke:#000000"
+         transform="translate(-214.02 580.91)"
+         d="m 350,214.02539 c -67.87935,0 -122.63086,54.75151 -122.63086,122.63086 0,67.87935 54.75151,122.63086 122.63086,122.63086 67.87935,0 122.63086,-54.75151 122.63086,-122.63086 0,-67.87935 -54.75151,-122.63086 -122.63086,-122.63086 z" />
+      <path
+         id="path3767"
+         style="fill:url(#linearGradient3777)"
+         transform="translate(-214.02 580.91)"
+         d="m 350,221.78516 c -63.68503,0 -114.87109,51.18606 -114.87109,114.87109 0,63.68503 51.18606,114.87109 114.87109,114.87109 63.68503,0 114.87109,-51.18606 114.87109,-114.87109 0,-63.68503 -51.18606,-114.87109 -114.87109,-114.87109 z" />
+      <path
+         id="path3846"
+         style="filter:url(#filter3842)"
+         transform="matrix(1 0 0 -1 -214.02 1254.2)"
+         d="m 350,236.57227 c -55.69793,0 -100.08398,44.38605 -100.08398,100.08398 0,55.69793 44.38605,100.08398 100.08398,100.08398 55.69793,0 100.08398,-44.38605 100.08398,-100.08398 0,-55.69793 -44.38605,-100.08398 -100.08398,-100.08398 z" />
+      <path
+         id="path3802"
+         style="fill:url(#linearGradient3804)"
+         transform="matrix(1 0 0 -1 -214.02 1254.2)"
+         d="m 350,236.00977 c -56.0186,0 -100.64648,44.62788 -100.64648,100.64648 0,56.0186 44.62788,100.64648 100.64648,100.64648 56.0186,0 100.64648,-44.62788 100.64648,-100.64648 0,-56.0186 -44.62788,-100.64648 -100.64648,-100.64648 z" />
+      <g
+         id="text3928"
+         style="fill:#ffffff"
+         transform="matrix(6.225 0 0 6.225 -2071.7 -1049)">
+        <path
+           id="path3933"
+           d="m364.85 304.98-7.9102 10.645 8.3203 11.23h-4.2383l-6.3672-8.5938-6.3672 8.5938h-4.2383l8.4961-11.445-7.7734-10.43h4.2383l5.8008 7.793 5.8008-7.793h4.2383"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+  </g>
+  <metadata
+     id="metadata178">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>No button. Boton No</dc:title>
+        <dc:date>2011-08-31T17:27:26</dc:date>
+        <dc:description>No, wrong, negative, incorrect button. Boton No, equivocado, negativo, incorrecto.</dc:description>
+        <dc:source>https://openclipart.org/detail/158779/no-button.-botón-no-by-ehecatl1138</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Ehecatl1138</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>boton</rdf:li>
+            <rdf:li>button</rdf:li>
+            <rdf:li>equivocado</rdf:li>
+            <rdf:li>incorrect</rdf:li>
+            <rdf:li>incorrecto</rdf:li>
+            <rdf:li>negative</rdf:li>
+            <rdf:li>negativo</rdf:li>
+            <rdf:li>no</rdf:li>
+            <rdf:li>wrong</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

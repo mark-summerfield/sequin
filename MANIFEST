@@ -1,0 +1,56 @@
+sequin.tk
+app-1.tm
+config-1.tm
+config_form-1.tm
+
+ref-1.tm
+util-1.tm
+about_form-1.tm
+abstract_form-1.tm
+maybe_save_form-1.tm
+message_form-1.tm
+yes_no_form-1.tm
+flowrow-2.tm
+mdi-3.tm
+ui-1.tm
+
+db-1.tm
+
+st.sh
+
+# NOTE
+# can create incrementally, one type of child window at a time, e.g.,
+#   - Table/View window
+#       Table name label [Order By v] # No Order By if view has ORDER BY?
+#       Field name labels
+#       Rows of data
+#   - SELECT window for entering queries using text editor with
+#       SQL color syntax highlighting
+#   - Structure window for the db structure (tables, views, indexes,
+#       triggers, etc.)
+#   - Pragma window
+#   - Record window
+#       Table name label |< < > >| [Order By v]
+#       Fieldname Fieldvalue
+#       -except if field type is BLOB-
+#   	if jpg|png|svg show
+#   	    Fieldname:
+#   	    Label with image
+#   	if ste|tkt|tktz show
+#   	    Fieldname:
+#   	    ste with text
+#   	else
+#   	    Fieldname “BLOB (n,nnn bytes)”
+#
+# NOTE
+# Whenever a new database is opened look for databasename.sqn or failing
+# that glob *.sqn & if there is exactly one use that for metadata;
+# If the user sets metadata, i.e., says this field is jpg or bool etc.,
+# then save databasename.sqn when the database (or Sequin) is closed.
+#   .sqn file is ini-style e.g.,
+#     [table name]
+#     field name: field_interpretation
+#   where field_interpretation is one of:
+#   bool png jpg svg tkt tktz ste blob (default)
+
+# vim: syn=yaml
