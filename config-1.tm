@@ -3,13 +3,11 @@
 package require inifile
 package require util
 
-# Also handles tk scaling
+# Also handles tk scaling & UIF (user interface font)
 oo::singleton create Config {
     variable Filename
     variable Blinking
     variable Geometry
-    variable FontFamily
-    variable FontSize
     variable LastFile
     variable HiddenToolbars
 }
@@ -19,8 +17,6 @@ oo::define Config constructor {{appname {}}} {
             [expr {$appname ne "" ? $appname : [tk appname]}]]
     set Blinking 1
     set Geometry ""
-    set FontFamily [font configure TkDefaultFont -family]
-    set FontSize [font configure TkDefaultFont -size]
     set LastFile ""
     set HiddenToolbars [list]
     if {[file exists $Filename] && [file size $Filename]} {
@@ -33,8 +29,14 @@ oo::define Config constructor {{appname {}}} {
                 ttk::style configure . -insertofftime 0
             }
             set Geometry [ini::value $ini General Geometry $Geometry]
-            set FontFamily [ini::value $ini General FontFamily $FontFamily]
-            set FontSize [ini::value $ini General FontSize $FontSize]
+            set ui_family [ini::value $ini General UIFfamily TkDefaultFont]
+            set ui_default_size [font configure TkDefaultFont -size]
+            set ui_size [ini::value $ini General UIFsize $ui_default_size]
+            if {$ui_family ne "TkDefaultFont" || \
+                    $ui_size != $ui_default_size} {
+                font configure TkDefaultFont -family $ui_family \
+                        -size $ui_size
+            }
             set LastFile [ini::value $ini General LastFile \
                 $LastFile]
             set HiddenToolbars [split [ini::value $ini General \
@@ -53,8 +55,9 @@ oo::define Config method save {} {
         ini::set $ini General Scale [tk scaling]
         ini::set $ini General Blinking [my blinking]
         ini::set $ini General Geometry [wm geometry .]
-        ini::set $ini General FontFamily [my family]
-        ini::set $ini General FontSize [my size]
+        ini::set $ini General UIFfamily [font configure TkDefaultFont \
+                                            -family]
+        ini::set $ini General UIFsize [font configure TkDefaultFont -size]
         ini::set $ini General LastFile $LastFile
         ini::set $ini General HiddenToolbars [join $HiddenToolbars]
         ini::commit $ini
@@ -72,11 +75,6 @@ oo::define Config method set_blinking blinking { set Blinking $blinking }
 oo::define Config method geometry {} { set Geometry }
 oo::define Config method set_geometry geometry { set Geometry $geometry }
 
-oo::define Config method size {} { set FontSize }
-oo::define Config method set_size size { set FontSize $size }
-
-oo::define Config method family {} { set FontFamily }
-oo::define Config method set_family family { set FontFamily $family }
 
 oo::define Config method lastfile {} { set LastFile }
 oo::define Config method set_lastfile lastfile {
@@ -89,8 +87,10 @@ oo::define Config method set_hidden_toolbars toolbars {
 }
 
 oo::define Config method to_string {} {
+    set family [font configure TkDefaultFont -family]
+    set size [font configure TkDefaultFont -size]
     return "Config filename=$Filename blinking=$Blinking\
-        scaling=[tk scaling] geometry=$Geometry fontfamily=$FontFamily\
-        fontsize=$FontSize lastfile=[my lastfile]\
+        scaling=[tk scaling] geometry=$Geometry fontfamily=$family\
+        fontsize=$size lastfile=[my lastfile]\
         hidden_toolbars=$HiddenToolbars"
 }

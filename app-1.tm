@@ -150,18 +150,10 @@ oo::define App method clear_status {} { $StatusLabel configure -text "" }
 oo::define App method on_config {} {
     set config [Config new]
     set ok [Ref new 0]
-    set family [$config family]
-    set size [$config size]
     set form [ConfigForm new $ok]
     tkwait window [$form form]
     if {[$ok get]} {
-        puts on_config ;# TODO
-        if {$family ne [$config family] || $size != [$config size]} {
-            foreach child [$MdiArea all_children] {
-                # if child kind is text then:
-                    #$txt make_fonts [$config family] [$config size]
-            }
-        }
+        # pass
     }
 }
 

@@ -9,16 +9,12 @@ oo::class create ConfigForm {
 
     variable Ok
     variable Blinking
-    variable FontFamily
-    variable FontSize
 }
 
 oo::define ConfigForm constructor ok {
     set Ok $ok
     set config [Config new]
     set Blinking [$config blinking]
-    set FontFamily [$config family]
-    set FontSize [$config size]
     my make_widgets 
     my make_layout
     my make_bindings
@@ -48,14 +44,15 @@ oo::define ConfigForm method make_widgets {} {
     $tip .configForm.mf.blinkCheckbutton \
         "Whether the text cursor should blink."
     set opts "-compound left -width 15"
-    ttk::button .configForm.mf.fontButton -text Font… -underline 0 \
+    ttk::button .configForm.mf.uif -text "UI Font…" -underline 0 \
         -image [ui::icon preferences-desktop-font.svg $::ICON_SIZE] \
-        -command [callback on_font] {*}$opts
-    $tip .configForm.mf.fontButton "The font to use.\nBest to set the\
+        -command [callback on_uif] {*}$opts
+    $tip .configForm.mf.uif "The font to use.\nBest to set the\
         application’s scale (and restart) first."
-    ttk::label .configForm.mf.fontLabel -relief sunken \
-            -text "$FontFamily $FontSize" \
-            -font [font create -family $FontFamily]
+    set family [font actual TkDefaultFont -family]
+    set size [font actual TkDefaultFont -size]
+    ttk::label .configForm.mf.uiflabel -text "$family $size" \
+            -font TkDefaultFont
     ttk::label .configForm.mf.configFileLabel -foreground gray25 \
         -text "Config file"
     ttk::label .configForm.mf.configFilenameLabel -foreground gray25 \
@@ -74,8 +71,8 @@ oo::define ConfigForm method make_layout {} {
     grid .configForm.mf.scaleLabel -row 0 -column 0 -sticky w {*}$opts
     grid .configForm.mf.scaleSpinbox -row 0 -column 1 -columnspan 2 \
         -sticky we {*}$opts
-    grid .configForm.mf.fontButton -row 1 -column 0 -sticky w {*}$opts
-    grid .configForm.mf.fontLabel -row 1 -column 1 -columnspan 2 \
+    grid .configForm.mf.uif -row 1 -column 0 -sticky w {*}$opts
+    grid .configForm.mf.uiflabel -row 1 -column 1 -columnspan 2 \
         -sticky news {*}$opts
     grid .configForm.mf.blinkCheckbutton -row 2 -column 1 -sticky we
     grid .configForm.mf.configFileLabel -row 8 -column 0 -sticky we {*}$opts
@@ -95,39 +92,34 @@ oo::define ConfigForm method make_bindings {} {
     bind .configForm <Escape> [callback on_cancel]
     bind .configForm <Return> [callback on_ok]
     bind .configForm <Alt-b> {.configForm.mf.blinkCheckbutton invoke}
-    bind .configForm <Alt-f> [callback on_font]
     bind .configForm <Alt-o> [callback on_ok]
     bind .configForm <Alt-s> {focus .configForm.mf.scaleSpinbox}
+    bind .configForm <Alt-u> [callback on_uif]
 }
 
-oo::define ConfigForm method on_font {} {
+oo::define ConfigForm method on_uif {} {
     tk fontchooser configure -parent .configForm \
-            -title "[tk appname] — Choose Font" \
-            -font [font create -family $FontFamily] \
-            -command [callback on_font_chosen]
+            -title "[tk appname] — Choose User Interface Font" \
+            -font TkDefaultFont -command [callback on_uif_chosen]
     tk fontchooser show
 }
 
-oo::define ConfigForm method on_font_chosen args {
+oo::define ConfigForm method on_uif_chosen args {
     if {[llength $args] > 0} {
         set args [lindex $args 0]
         if {[llength $args] > 1} {
-            set FontFamily [lindex $args 0]
-            set FontSize [lindex $args 1]
-            .configForm.mf.fontLabel configure \
-                -text "$FontFamily $FontSize" \
-                -font [font create -family $FontFamily]
+            set family [lindex $args 0]
+            set size [lindex $args 1]
+            font configure TkDefaultFont -family $family -size $size
+            .configForm.mf.uiflabel configure -text "$family $size"
         }
     }
     focus .configForm
 }
-
 oo::define ConfigForm method on_ok {} {
     set config [Config new]
     tk scaling [.configForm.mf.scaleSpinbox get]
     $config set_blinking $Blinking
-    $config set_family $FontFamily
-    $config set_size $FontSize
     $Ok set 1
     my delete
 }
