@@ -19,9 +19,9 @@ db-1.tm
 st.sh
 
 # TODO
-# When a new database is opened what should be shown? How about a
-# structure-window where the user can then click, e.g., a table or view
-# to see a Table/View window?
+# When a new database is opened show a nonclosable structure-window
+# where the user can then click, e.g., a table or view to see a
+# Table/View window
 
 # NOTE
 # Whenever a new database is opened for any BLOB fields, select the
@@ -30,14 +30,14 @@ st.sh
 
 # NOTE
 # can create incrementally, one type of child window at a time, e.g.,
+#   - Structure window for the db structure (tables, views, indexes,
+#       triggers, etc.)
 #   - Table/View window
 #       Table name label [Order By v] # No Order By if view has ORDER BY?
 #       Field name labels
 #       Rows of data
 #   - SELECT window for entering queries using text editor with
 #       SQL color syntax highlighting
-#   - Structure window for the db structure (tables, views, indexes,
-#       triggers, etc.)
 #   - Pragma window
 #   - Record window
 #       Table name label |< < > >| [Order By v]
