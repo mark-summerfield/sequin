@@ -19,7 +19,7 @@ db-1.tm
 st.sh
 
 # TODO
-# When a new database is opened show a nonclosable structure-window
+# When a new database is opened show a nonclosable schema-window
 # where the user can then click, e.g., a table or view to see a
 # Table/View window:
 #
@@ -27,7 +27,7 @@ st.sh
 #   WHERE sql IS NOT NULL AND #	type IN ('table', 'view') AND
 #	name NOT LIKE 'sqlite_%' ORDER BY type, LOWER(name)
 #
-# - table name _ □
+# - Tables/Views _ □
 # Tables            ^
 #   table name 1    |
 #	:           |
@@ -42,8 +42,7 @@ st.sh
 
 # NOTE
 # can create incrementally, one type of child window at a time, e.g.,
-#   - Structure window for the db structure (tables, views, indexes,
-#       triggers, etc.)
+#   - Schema window for the db schema (tables, views)
 #   - Table/View window
 #       Table name label [Order By v] # No Order By if view has ORDER BY?
 #       Field name labels

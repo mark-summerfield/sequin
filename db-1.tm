@@ -6,7 +6,7 @@ namespace eval db {}
 
 proc db::sqlite_version {} {
     set db ::DB#[string range [clock clicks] end-8 end]
-    sqlite3 $db :memory:
+    sqlite3 $db :memory: -nomutex 1
     try {
         return "SQLite [$db version]"
     } finally {

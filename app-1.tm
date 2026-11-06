@@ -212,4 +212,14 @@ oo::define App method file_open {} {
     set version [$Db onecolumn "PRAGMA USER_VERSION"]
     my show_message "Opened $Filename[expr {$version ? " (v$version)" \
                                                      : ""}]"
+    my new_schema_win
+}
+
+oo::define App method new_schema_win {} {
+    set child [$MdiArea new_child "Tables/Views" SCHEMA {} {minimize \
+            maximize}]
+    set content [$child content]
+    # TODO treeview with vertical scrollbar (use Tklib scrollarea?)
+    focus [$child frame] ;# TODO focus $tree
+    puts new_schema_win ;# TODO
 }
