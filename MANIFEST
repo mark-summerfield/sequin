@@ -18,23 +18,6 @@ db-1.tm
 
 st.sh
 
-# TODO
-# When a new database is opened show a nonclosable schema-window
-# where the user can then click, e.g., a table or view to see a
-# Table/View window:
-#
-# SELECT name, type FROM sqlite_master
-#   WHERE sql IS NOT NULL AND #	type IN ('table', 'view') AND
-#	name NOT LIKE 'sqlite_%' ORDER BY type, LOWER(name)
-#
-# - Tables/Views _ □
-# Tables            ^
-#   table name 1    |
-#	:           |
-# Views             |
-#   view name 1     |   
-#	:           v
-
 # NOTE
 # Whenever a new database is opened for any BLOB fields, select the
 # first record that has a nonempty BLOB and determine its type by magic
@@ -42,7 +25,7 @@ st.sh
 
 # NOTE
 # can create incrementally, one type of child window at a time, e.g.,
-#   - Schema window for the db schema (tables, views)
+#   + Schema window for the db schema (tables, views)
 #   - Table/View window
 #       Table name label [Order By v] # No Order By if view has ORDER BY?
 #       Field name labels

@@ -1,11 +1,13 @@
 # Copyright © 2026 Mark Summerfield. All rights reserved.
 
 package require about_form
+#package require autoscroll 1
 package require config
 package require config_form
 package require flowrow
 package require mdi
 package require ref
+package require scrollutil_tile 2
 package require sqlite3 3
 package require ui
 
@@ -219,7 +221,36 @@ oo::define App method new_schema_win {} {
     set child [$MdiArea new_child "Tables/Views" SCHEMA {} {minimize \
             maximize}]
     set content [$child content]
-    # TODO treeview with vertical scrollbar (use Tklib scrollarea?)
-    focus [$child frame] ;# TODO focus $tree
-    puts new_schema_win ;# TODO
+    set scroll [scrollutil::scrollarea $content.scroll]
+    set tree [ttk::treeview $content.scroll.tree -show tree \
+            -selectmode browse -striped 1]
+    ui::apply_treeview_bindings $tree
+    $scroll setwidget $tree
+    pack $scroll -fill both -expand 1
+    $tree tag configure heading -foreground navy
+    $tree insert {} end -id table -text Tables -tags heading
+    $tree insert {} end -id view -text Views -tags heading -open 1
+    set first_table ""
+    set first_view ""
+    $Db eval {SELECT name, type FROM sqlite_master
+                WHERE sql IS NOT NULL AND type IN ('table', 'view') AND
+                      name NOT LIKE 'sqlite_%' ORDER BY type, LOWER(name)} {
+        $tree insert $type end -id $type@$name -text $name
+        if {$type eq "table"} {
+            if {$first_table eq ""} { set first_table $type@$name }
+        } elseif {$first_view eq ""} {
+            set first_view $type@$name
+        }
+    }
+    focus $tree
+    if {$first_view ne ""} {
+        set item $first_view
+    } elseif {$first_table ne ""} {
+        set item $first_table
+    } else {
+        set item table
+    }
+    $tree focus $item
+    $tree selection set $item
+    $tree see $item
 }
