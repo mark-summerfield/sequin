@@ -26,6 +26,14 @@ st.sh
 # SELECT name, type FROM sqlite_master
 #   WHERE sql IS NOT NULL AND #	type IN ('table', 'view') AND
 #	name NOT LIKE 'sqlite_%' ORDER BY type, LOWER(name)
+#
+# - table name _ □
+# Tables            ^
+#   table name 1    |
+#	:           |
+# Views             |
+#   view name 1     |   
+#	:           v
 
 # NOTE
 # Whenever a new database is opened for any BLOB fields, select the

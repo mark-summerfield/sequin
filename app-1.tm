@@ -198,7 +198,7 @@ oo::define App method on_file_open {} {
 
 oo::define App method file_close {} {
     if {$Filename ne ""} {
-        $MdiArea close_all
+        $MdiArea destroy_children
         $Db close
         set Db ""
         set Filename ""
