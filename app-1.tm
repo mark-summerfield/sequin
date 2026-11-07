@@ -219,10 +219,10 @@ oo::define App method file_open {} {
 
 oo::define App method new_schema_win {} {
     lassign [$Db eval {
-        SELECT 2 + MIN(38, MAX(LENGTH(name))) AS width, COUNT(*) AS n
+        SELECT 4 + MIN(38, MAX(LENGTH(name))) AS width, COUNT(*) AS n
             FROM sqlite_master
             WHERE sql IS NOT NULL AND type IN ('table', 'view') AND
-                  name NOT LIKE 'sqlite_%'}] width n
+                  name NOT LIKE 'sqlite_%'}] width n ;# 4+ for indent
     set width [expr {$width * [font measure TkDefaultFont \
             -displayof [$MdiArea frame] N]}]
     set height [expr {min(int(round($::LINEHEIGHT * $n)),
