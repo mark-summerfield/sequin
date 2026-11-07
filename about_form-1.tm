@@ -19,7 +19,7 @@ oo::define AboutForm constructor {desc {url ""} {license GPLv3}} {
     set Desc $desc
     set Url $url
     set License $license
-    set Height [expr {12 + [regexp -all \n $desc]}]
+    set Height [expr {13 + [regexp -all \n $desc]}]
     my make_widgets
     my make_layout
     my make_bindings

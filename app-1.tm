@@ -218,39 +218,43 @@ oo::define App method file_open {} {
 }
 
 oo::define App method new_schema_win {} {
-    set child [$MdiArea new_child "Tables/Views" SCHEMA {} {minimize \
-            maximize}]
-    set content [$child content]
+    lassign [$Db eval {
+        SELECT 2 + MAX(LENGTH(name)) AS width, COUNT(*) AS n
+            FROM sqlite_master
+            WHERE sql IS NOT NULL AND type IN ('table', 'view') AND
+                  name NOT LIKE 'sqlite_%'}] width n
+    set width [expr {$width * [font measure TkDefaultFont \
+            -displayof [$MdiArea frame] N]}]
+    set height [expr {min(int(round($::LINEHEIGHT * $n)),
+            [winfo height [$MdiArea frame]])}]
+    set child [$MdiArea new_child "Tables & Views" SCHEMA \
+            [list 0 0 $width $height] {minimize maximize}]
+    set tree [my make_tree [$child content]]
+    $tree tag configure heading -foreground navy
+    $tree insert {} end -id table -text Tables -tags heading -open 1
+    $tree insert {} end -id view -text Views -tags heading -open 1
+    $Db eval {
+        SELECT name, type FROM sqlite_master
+            WHERE sql IS NOT NULL AND type IN ('table', 'view') AND
+                  name NOT LIKE 'sqlite_%' ORDER BY type, LOWER(name)} {
+        $tree insert $type end -id $type@$name -text $name
+    }
+    my set_focus $tree table
+}
+
+oo::define App method make_tree content {
     set scroll [scrollutil::scrollarea $content.scroll]
     set tree [ttk::treeview $content.scroll.tree -show tree \
             -selectmode browse -striped 1]
     ui::apply_treeview_bindings $tree
     $scroll setwidget $tree
     pack $scroll -fill both -expand 1
-    $tree tag configure heading -foreground navy
-    $tree insert {} end -id table -text Tables -tags heading
-    $tree insert {} end -id view -text Views -tags heading -open 1
-    set first_table ""
-    set first_view ""
-    $Db eval {SELECT name, type FROM sqlite_master
-                WHERE sql IS NOT NULL AND type IN ('table', 'view') AND
-                      name NOT LIKE 'sqlite_%' ORDER BY type, LOWER(name)} {
-        $tree insert $type end -id $type@$name -text $name
-        if {$type eq "table"} {
-            if {$first_table eq ""} { set first_table $type@$name }
-        } elseif {$first_view eq ""} {
-            set first_view $type@$name
-        }
-    }
+    return $tree
+}
+
+oo::define App method set_focus {tree item_id} {
     focus $tree
-    if {$first_view ne ""} {
-        set item $first_view
-    } elseif {$first_table ne ""} {
-        set item $first_table
-    } else {
-        set item table
-    }
-    $tree focus $item
-    $tree selection set $item
-    $tree see $item
+    $tree focus $item_id
+    $tree selection set $item_id
+    $tree see $item_id
 }
